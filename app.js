@@ -12,7 +12,8 @@ function app(people){
       searchResults = searchByName(people);
       break;
     case 'no':
-      prompt("Please select one of the following to search by:\nGender, date of birth, height, weight, eye color, occupation")// TODO: search by traits
+      // TODO: search by traits
+      searchResults = selectSearch(people);
       break;
       default:
     app(people); // restart app
@@ -20,7 +21,7 @@ function app(people){
   }
   
   // Call the mainMenu function ONLY after you find the SINGLE person you are looking for
-  mainMenu(searchResults, people);
+  mainMenu(searchResults[0], people);
 }
 
 // Menu function to call once you find who you are looking for
@@ -55,6 +56,21 @@ function mainMenu(person, people){
   }
 }
 
+
+function selectSearch(people){
+  let searchResults = people;
+  while(searchResults.length >= 1);{
+  let searchChoice = promptFor("which trait would you like to search by?\n1. Gender\n2. Weight\n3. Height\n4.Eye Color\n5. Age", chars);
+  switch(searchChoice){
+    case "1":
+      searchResults = searchByGender(searchResults);
+      break;
+  }
+}
+return searchResults;
+
+}
+
 function searchByName(people){
   let firstName = promptFor("What is the person's first name?", chars);
   let lastName = promptFor("What is the person's last name?", chars);
@@ -69,6 +85,18 @@ function searchByName(people){
   })
   // TODO: find the person using the name they entered
   return foundPerson;
+}
+
+
+function searchByGender(people){
+  let chooseGender = promptFor("What is the person's gender (Male or Female)", chars).toLocaleLowerCase();
+  let foundPerson = people.fitler(function(person)){
+    if(person.gender === chooseGender){
+      return true;
+    }
+  }
+  console.log(foundPerson);
+  return foundPerson; 
 }
 
 // alerts a list of people
