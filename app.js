@@ -12,7 +12,7 @@ function app(people){
       searchResults = searchByName(people);
       break;
     case 'no':
-      // TODO: search by traits
+      prompt("Please select one of the following to search by:\nGender, date of birth, height, weight, eye color, occupation")// TODO: search by traits
       break;
       default:
     app(people); // restart app
