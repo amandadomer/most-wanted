@@ -59,6 +59,7 @@ function mainMenu(person, people){
 
 function selectSearch(people){
   let searchResults = people;
+<<<<<<< HEAD
   do{
     let searchChoice = promptFor("which trait would you like to search by?\n1. Gender\n2. Weight\n3. Height\n4.Eye Color\n5. Age", chars);
   switch(searchChoice){
@@ -66,6 +67,13 @@ function selectSearch(people){
       searchResults = searchByGender(searchResults);
       console.log(searchResults.length)
       displayPeople(searchResults);
+=======
+  while(searchResults.length >= 1);{
+  let searchChoice = promptFor("which trait would you like to search by?\n1. Gender\n2. Weight\n3. Height\n4.Eye Color\n5. Age", chars);
+  switch(searchChoice){
+    case "1":
+      searchResults = searchByGender(searchResults);
+>>>>>>> 4cafeef4aa224c3dd9bceb78bbe355e0a6d4038b
       break;
   }
 }
