@@ -41,6 +41,7 @@ function mainMenu(person, people){
     // TODO: get person's info
     break;
     case "family":
+      people.filter 
     // TODO: get person's family
     break;
     case "descendants":
@@ -65,6 +66,8 @@ function selectSearch(people){
     case "1":
       searchResults = searchByGender(searchResults);
       break;
+    case "2":
+      searchResults = searchByWeight
   }
 }
 return searchResults;
@@ -99,6 +102,8 @@ function searchByGender(people){
   return foundPerson; 
 }
 
+
+
 // alerts a list of people
 function displayPeople(people){
   alert(people.map(function(person){
@@ -111,6 +116,7 @@ function displayPerson(person){
   // height, weight, age, name, occupation, eye color.
   let personInfo = "First Name: " + person.firstName + "\n";
   personInfo += "Last Name: " + person.lastName + "\n";
+  personInfo += "Gender" + person.gender + "\n"
   // TODO: finish getting the rest of the information to display
   alert(personInfo);
 }
