@@ -67,6 +67,22 @@ function selectSearch(people){
       console.log(searchResults.length)
       displayPeople(searchResults);
       break;
+    case "2":
+        searchResults = searchByWeight(searchResults);
+        displayPeople(searchResults);
+        break;
+    case "3":
+        searchResults = searchByHeight(searchResults);
+        displayPeople(searchResults);
+        break;
+    case "4":
+        searchResults = searchByEyeColor(searchResults);
+        displayPeople(searchResults);
+        break;
+    case "5":
+        searchResults = searchByDob(searchResults);
+        displayPeople(searchResults);
+        break;
   }
 }
 while(searchResults.length >= 1); 
@@ -99,6 +115,50 @@ function searchByGender(people){
   console.log(foundPerson);
   return foundPerson; 
 }
+
+function searchByWeight(people){
+  let chooseWeight = promptFor("What is the weight", chars);
+  let foundPerson = people.filter(function(person){
+    if(person.weight == chooseWeight){
+      return true;
+    }
+  })
+  console.log(foundPerson);
+  return foundPerson; 
+}
+function searchByHeight(people){
+  let chooseHeight = promptFor("What is the height", chars);
+  let foundPerson = people.filter(function(person){
+    if(person.height == chooseHeight){
+      return true;
+    }
+  })
+  console.log(foundPerson);
+  return foundPerson; 
+}
+
+function searchByEyeColor(people){
+  let chooseEyeColor = promptFor("What is the person's eye color", chars).toLowerCase();;
+  let foundPerson = people.filter(function(person){
+    if(person.eyeColor == chooseEyeColor){
+      return true;
+    }
+  })
+  console.log(foundPerson);
+  return foundPerson; 
+}
+
+function searchByDob(people){
+  let chooseByDob = promptFor("What is the person's dob", chars);
+  let foundPerson = people.filter(function(person){
+    if(person.ByDob == chooseByDob){
+      return true;
+    }
+  })
+  console.log(foundPerson);
+  return foundPerson; 
+}
+
 
 // alerts a list of people
 function displayPeople(people){
