@@ -38,6 +38,7 @@ function mainMenu(person, people){
 
   switch(displayOption){
     case "info":
+      displayPerson(person);
     // TODO: get person's info
     break;
     case "family":
@@ -57,21 +58,24 @@ function mainMenu(person, people){
   }
 }
 
-
 function selectSearch(people){
   let searchResults = people;
-  while(searchResults.length >= 1);{
-  let searchChoice = promptFor("which trait would you like to search by?\n1. Gender\n2. Weight\n3. Height\n4.Eye Color\n5. Age", chars);
+  do{
+    let searchChoice = promptFor("Which trait would you like to search by?\n1. Gender\n2. Weight\n3. Height\n4.Eye Color\n5. Age", chars);
   switch(searchChoice){
     case "1":
       searchResults = searchByGender(searchResults);
+      console.log(searchResults.length)
+      displayPeople(searchResults);
       break;
     case "2":
-      searchResults = searchByWeight
+      searchResults = searchByWeight(searchResults);
+      displayPeople(searchResults);
+      break;
   }
 }
+while(searchResults.length >= 1); 
 return searchResults;
-
 }
 
 function searchByName(people){
@@ -90,18 +94,27 @@ function searchByName(people){
   return foundPerson;
 }
 
-
 function searchByGender(people){
-  let chooseGender = promptFor("What is the person's gender (Male or Female)", chars).toLocaleLowerCase();
-  let foundPerson = people.fitler(function(person)){
+  let chooseGender = promptFor("What is the person's gender (Male or Female)", chars).toLowerCase();
+  let foundPerson = people.filter(function(person){
     if(person.gender === chooseGender){
       return true;
     }
-  }
+  })
   console.log(foundPerson);
   return foundPerson; 
 }
 
+function searchByWeight(people){
+  let chooseWeight = promptFor("What is the person's weight?", chars).toLowerCase();
+  let foundPerson = people.filter(function(person){
+    if(person.weight == chooseWeight){
+      return true;
+    }
+  })
+  console.log(foundPerson);
+  return foundPerson; 
+}
 
 
 // alerts a list of people
