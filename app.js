@@ -26,7 +26,9 @@ function app(people){
 
 // Menu function to call once you find who you are looking for
 function mainMenu(person, people){
-
+  if(person){
+    
+  }
   /* Here we pass in the entire person object that we found in our search, as well as the entire original dataset of people. We need people in order to find descendants and other information that the user may want. */
 
   if(!person){
@@ -61,7 +63,7 @@ function mainMenu(person, people){
 function selectSearch(people){
   let searchResults = people;
   do{
-    let searchChoice = promptFor("Which trait would you like to search by?\n1. Gender\n2. Weight\n3. Height\n4.Eye Color\n5. Age", chars);
+    let searchChoice = promptFor("Which trait would you like to search by?\n1. Gender\n2. Weight\n3. Height\n4. Eye Color\n5. Date of Birth\n6. Multiple Criteria", chars);
   switch(searchChoice){
     case "1":
       searchResults = searchByGender(searchResults);
@@ -71,6 +73,22 @@ function selectSearch(people){
     case "2":
       searchResults = searchByWeight(searchResults);
       displayPeople(searchResults);
+      break;
+    case "3":
+      searchResults = searchByHeight(searchResults);
+      displayPeople(searchResults);
+      break;
+    case "4":
+      searchResults = searchByEye(searchResults);
+      displayPeople(searchResults);
+      break;
+    case "5":
+      searchResults = searchByDob(searchResults);
+      displayPeople(searchResults);
+      break;   
+      case "6":
+      searchResults = searchByMulti(searchResults);
+      // displayPeople(searchResults);
       break;
   }
 }
@@ -106,7 +124,7 @@ function searchByGender(people){
 }
 
 function searchByWeight(people){
-  let chooseWeight = promptFor("What is the person's weight?", chars).toLowerCase();
+  let chooseWeight = promptFor("What is the person's weight?", chars);
   let foundPerson = people.filter(function(person){
     if(person.weight == chooseWeight){
       return true;
@@ -115,6 +133,40 @@ function searchByWeight(people){
   console.log(foundPerson);
   return foundPerson; 
 }
+
+function searchByHeight(people){
+  let chooseHeight = promptFor("What is the person's height in inches?", chars);
+  let foundPerson = people.filter(function(person){
+    if(person.height == chooseHeight){
+      return true;
+    }
+  })
+  console.log(foundPerson);
+  return foundPerson; 
+}
+
+function searchByEye(people){
+  let chooseEye = promptFor("What is the person's eye color?", chars).toLowerCase();
+  let foundPerson = people.filter(function(person){
+    if(person.eyeColor === chooseEye){
+      return true;
+    }
+  })
+  console.log(foundPerson);
+  return foundPerson; 
+}
+
+function searchByDob(people){
+  let chooseDob = promptFor("What is the person's date of birth?", chars);
+  let foundPerson = people.filter(function(person){
+    if(person.dob == chooseDob){
+      return true;
+    }
+  })
+  console.log(foundPerson);
+  return foundPerson; 
+}
+
 
 
 // alerts a list of people
@@ -129,7 +181,12 @@ function displayPerson(person){
   // height, weight, age, name, occupation, eye color.
   let personInfo = "First Name: " + person.firstName + "\n";
   personInfo += "Last Name: " + person.lastName + "\n";
-  personInfo += "Gender" + person.gender + "\n"
+  personInfo += "Date of birth: " + person.dob + "\n"
+  personInfo += "Gender: " + person.gender + "\n";
+  personInfo += "Height: " + person.height + "\n";
+  personInfo += "Weight: " + person.weight + "\n";
+  personInfo += "Occupation: " + person.occupation + "\n";
+  personInfo += "Eye Color: " + person.eyeColor + "\n"
   // TODO: finish getting the rest of the information to display
   alert(personInfo);
 }
@@ -144,7 +201,7 @@ function promptFor(question, valid){
 
 // helper function to pass into promptFor to validate yes/no answers
 function yesNo(input){
-  return input.toLowerCase() == "yes" || input.toLowerCase() == "no";
+  return input.toLowerCase() == "yes" ||  input.toLowerCase() == "no";
 }
 
 // helper function to pass in as default promptFor validation
