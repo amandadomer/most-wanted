@@ -26,7 +26,9 @@ function app(people){
 
 // Menu function to call once you find who you are looking for
 function mainMenu(person, people){
-
+  if(person){
+    
+  }
   /* Here we pass in the entire person object that we found in our search, as well as the entire original dataset of people. We need people in order to find descendants and other information that the user may want. */
 
   if(!person){
@@ -205,6 +207,40 @@ function displayChildren(people, person){
 
 
 
+function searchByHeight(people){
+  let chooseHeight = promptFor("What is the person's height in inches?", chars);
+  let foundPerson = people.filter(function(person){
+    if(person.height == chooseHeight){
+      return true;
+    }
+  })
+  console.log(foundPerson);
+  return foundPerson; 
+}
+
+function searchByEye(people){
+  let chooseEye = promptFor("What is the person's eye color?", chars).toLowerCase();
+  let foundPerson = people.filter(function(person){
+    if(person.eyeColor === chooseEye){
+      return true;
+    }
+  })
+  console.log(foundPerson);
+  return foundPerson; 
+}
+
+function searchByDob(people){
+  let chooseDob = promptFor("What is the person's date of birth?", chars);
+  let foundPerson = people.filter(function(person){
+    if(person.dob == chooseDob){
+      return true;
+    }
+  })
+  console.log(foundPerson);
+  return foundPerson; 
+}
+
+
 
 function displayPeople(people){
   alert(people.map(function(person){
@@ -227,14 +263,13 @@ function displayPerson(person){
   // print all of the information about a person:
   // height, weight, age, name, occupation, eye color.
   let personInfo = "First Name: " + person.firstName + "\n";
-   personInfo += "Last Name: " + person.lastName + "\n";
-   personInfo += "Gender: " + person.gender + "\n";
-   personInfo += "dob: " + person.dob + "\n";
-   personInfo += "Height: " + person.height + "\n";
-   personInfo += "Weight: " + person.weight + "\n";
-   personInfo += "eyeColor: " + person.eyeColor + "\n";
-   personInfo += "occupation: " + person.occupation + "\n";
-   personInfo += "spouse: " + person.currentSpouse + "\n";
+  personInfo += "Last Name: " + person.lastName + "\n";
+  personInfo += "Date of birth: " + person.dob + "\n"
+  personInfo += "Gender: " + person.gender + "\n";
+  personInfo += "Height: " + person.height + "\n";
+  personInfo += "Weight: " + person.weight + "\n";
+  personInfo += "Occupation: " + person.occupation + "\n";
+  personInfo += "Eye Color: " + person.eyeColor + "\n"
   // TODO: finish getting the rest of the information to display
   alert(personInfo);
 }
@@ -249,7 +284,7 @@ function promptFor(question, valid){
 
 // helper function to pass into promptFor to validate yes/no answers
 function yesNo(input){
-  return input.toLowerCase() == "yes" || input.toLowerCase() == "no";
+  return input.toLowerCase() == "yes" ||  input.toLowerCase() == "no";
 }
 
 // helper function to pass in as default promptFor validation
