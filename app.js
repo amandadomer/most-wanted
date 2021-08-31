@@ -42,10 +42,8 @@ function mainMenu(person, people){
     case "info":
       displayPerson(person);
       mainMenu(person, people);
-    // TODO: get person's info
     break;
     case "family":
-    // TODO: get person's family
     let spouse = searchBySpouse(people, person);
     displayPeopleAndRelationship(spouse, "Spouse");
     let children = displayChildren(people, person);
@@ -57,7 +55,7 @@ function mainMenu(person, people){
     break;
 
     case "descendants":
-    // TODO: get person's descendants
+      displayDescendants(people, person);
     break;
     case "restart":
     app(people); // restart
@@ -72,7 +70,7 @@ function mainMenu(person, people){
 function selectSearch(people){
   let searchResults = people;
   while(searchResults.length > 1){ 
-  let searchChoice = promptFor("which trait would you like to search by?\n1. Gender\n2. Weight(in inches)\n3. Height\n4. Eye Color\n5. DOB\n6. Multiple Criteria", chars);
+  let searchChoice = promptFor("which trait would you like to search by?\n1. Gender\n2. Weight(in inches)\n3. Height\n4. Eye Color\n5. DOB", chars);
   switch(searchChoice){
     case "1":
       searchResults = searchByGender(searchResults);
@@ -117,29 +115,8 @@ function searchByName(people){
   return foundPerson;
 }
 
-function searchByGender(people){
-  let chooseGender = promptFor("What is the person's gender (Male or Female)", chars).toLowerCase();
-  let foundPerson = people.filter(function(person){
-    if(person.gender === chooseGender){
-      return true;
-    }
-  })
-  console.log(foundPerson);
-  return foundPerson; 
-}
-
-function searchByWeight(people){
-  let chooseWeight = promptFor("What is the weight", chars);
-  let foundPerson = people.filter(function(person){
-    if(person.weight == chooseWeight){
-      return true;
-    }
-  })
-  console.log(foundPerson);
-  return foundPerson; 
-}
 function searchByHeight(people){
-  let chooseHeight = promptFor("What is the height", chars);
+  let chooseHeight = promptFor("What is the person's height in inches?", chars);
   let foundPerson = people.filter(function(person){
     if(person.height == chooseHeight){
       return true;
@@ -149,10 +126,21 @@ function searchByHeight(people){
   return foundPerson; 
 }
 
-function searchByEyeColor(people){
-  let chooseEyeColor = promptFor("What is the person's eye color", chars).toLowerCase();;
+function searchByWeight(people){
+  let chooseWeight = promptFor("What is the person's weight?", chars);
   let foundPerson = people.filter(function(person){
-    if(person.eyeColor == chooseEyeColor){
+    if(person.weight == chooseWeight){
+      return true;
+    }
+  })
+  console.log(foundPerson);
+  return foundPerson; 
+}
+
+function searchByEyeColor(people){
+  let chooseEye = promptFor("What is the person's eye color?", chars).toLowerCase();
+  let foundPerson = people.filter(function(person){
+    if(person.eyeColor === chooseEye){
       return true;
     }
   })
@@ -161,9 +149,20 @@ function searchByEyeColor(people){
 }
 
 function searchByDob(people){
-  let chooseByDob = promptFor("What is the person's dob", chars);
+  let chooseDob = promptFor("What is the person's date of birth?", chars);
   let foundPerson = people.filter(function(person){
-    if(person.dob == chooseByDob){
+    if(person.dob == chooseDob){
+      return true;
+    }
+  })
+  console.log(foundPerson);
+  return foundPerson; 
+}
+
+function searchByGender(people){
+  let chooseGender = promptFor("What is the person's gender (Male or Female)?", chars).toLowerCase();
+  let foundPerson = people.filter(function(person){
+    if(person.gender === chooseGender){
       return true;
     }
   })
@@ -200,47 +199,24 @@ function displayChildren(people, person){
       return true;
     }
   })
-  console.log(childrenSearchData);
   return childrenSearchData;
 }
-// Look up someone descendants
-
-
-
-function searchByHeight(people){
-  let chooseHeight = promptFor("What is the person's height in inches?", chars);
-  let foundPerson = people.filter(function(person){
-    if(person.height == chooseHeight){
-      return true;
+  
+let descendantsFound = [];
+let myVariable = 0;
+function displayDescendants(people, person){
+  let descendantSearchData = people.filter(function(el){
+    if (person.id === el.parents[0] || person.id === el.parents[1]){
+     descendantsFound.push(el);
     }
   })
-  console.log(foundPerson);
-  return foundPerson; 
-}
 
-function searchByEye(people){
-  let chooseEye = promptFor("What is the person's eye color?", chars).toLowerCase();
-  let foundPerson = people.filter(function(person){
-    if(person.eyeColor === chooseEye){
-      return true;
+    for (let i = myVariable ; i < descendantsFound.length; i++){
+      myVariable = myVariable + 1;
+      displayDescendants(people, descendantsFound[i]);
     }
-  })
-  console.log(foundPerson);
-  return foundPerson; 
+  console.log(descendantsFound);
 }
-
-function searchByDob(people){
-  let chooseDob = promptFor("What is the person's date of birth?", chars);
-  let foundPerson = people.filter(function(person){
-    if(person.dob == chooseDob){
-      return true;
-    }
-  })
-  console.log(foundPerson);
-  return foundPerson; 
-}
-
-
 
 function displayPeople(people){
   alert(people.map(function(person){
