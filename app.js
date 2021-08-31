@@ -52,6 +52,7 @@ function mainMenu(person, people){
     displayPeopleAndRelationship(parents, "Parents:");
     mainMenu(person, people);
     break;
+
     case "descendants":
     let descendants = displayDescendants(people, person);
     displayPeople (descendants);
@@ -71,7 +72,7 @@ function mainMenu(person, people){
 function selectSearch(people){
   let searchResults = people;
   while(searchResults.length > 1){ 
-  let searchChoice = promptFor("which trait would you like to search by?\n1. Gender\n2. Weight(in inches)\n3. Height\n4. Eye Color\n5. DOB", chars);
+  let searchChoice = promptFor("which trait would you like to search by?\n1. Gender\n2. Weight\n3. Height\n4. Eye Color\n5. DOB", chars);
   switch(searchChoice){
     case "1":
       searchResults = searchByGender(searchResults);
@@ -127,7 +128,7 @@ function searchByHeight(people){
 }
 
 function searchByWeight(people){
-  let chooseWeight = promptFor("What is the person's weight?", chars);
+  let chooseWeight = promptFor("What is the person's weight in pounds?", chars);
   let foundPerson = people.filter(function(person){
     if(person.weight == chooseWeight){
       return true;
@@ -201,17 +202,34 @@ function displayDescendants(people, person){
   let descendantsFound = [];
    descendantsFound = people.filter(function(el){
     if (person.id === el.parents[0] || person.id === el.parents[1]){
-    //  descendantsFound.push(el);  
     return true;
     }
   })
   for (let i = 0; i < descendantsFound.length; i++){
     descendantsFound = descendantsFound.concat(displayDescendants(people, descendantsFound[i]))
-
   }
-
-
   return descendantsFound;
+
+// Search by parents
+function displayParents(people, person){
+  let parentSearchData = people.filter(function(el){
+    if(person.parents[0] === el.id || person.parents[1] === el.id){
+      return true;
+    }
+  })
+  console.log(parentSearchData);
+  return parentSearchData;
+}
+
+// Search by children
+function displayChildren(people, person){
+  let childrenSearchData = people.filter(function(el){
+    if(person.id === el.parents[0] || person.id === el.parents[1]){
+      return true;
+    }
+  })
+  return childrenSearchData;
+}
 }
 
 function displayPeople(people){
